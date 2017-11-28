@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+echo "Installing $ASDF_INSTALL_VERSION, directory: $ASDF_INSTALL_PATH"
+
+ARCH=`uname -p`
+wget -O "$ASDF_INSTALL_PATH/firefox.tar.bz2" https://ftp.mozilla.org/pub/firefox/releases/$ASDF_INSTALL_VERSION/linux-$ARCH/en-US/firefox-$ASDF_INSTALL_VERSION.tar.bz2
+
+echo "Downloaded version $ASDF_INSTALL_VERSION"
+
+cd "$ASDF_INSTALL_PATH"
+tar xjvf firefox.tar.bz2
+
+mkdir profile
+cd firefox
+mv firefox actual-firefox
+
+echo '#!/usr/bin/env bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+"$DIR/actual-firefox" --profile "$DIR/../profile"
+' > firefox
+chmod u+x firefox
+
+ln -s "$ASDF_INSTALL_PATH/firefox/firefox-bin" "$ASDF_INSTALL_PATH/firefox/actual-firefox-bin" # workaround - make very, very old versions work

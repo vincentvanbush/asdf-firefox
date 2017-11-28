@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+curl -sS https://ftp.mozilla.org/pub/firefox/releases/ | grep -Eo "href=\"/pub/firefox/releases/([0-9].+)/\"" | sed 's/href="\/pub\/firefox\/releases\/\(.*\)\/"/\1/' | tr '\n' ' '
