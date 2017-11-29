@@ -9,6 +9,7 @@ echo "Downloaded version $ASDF_INSTALL_VERSION"
 
 cd "$ASDF_INSTALL_PATH"
 tar xjvf firefox.tar.bz2
+rm firefox.tar.bz2
 
 mkdir profile
 cd firefox
